@@ -1,15 +1,17 @@
 import json
 import emoji
-import re
 from collections import Counter
 from typing import List, Tuple
-import os
 
-# Expresión regular para encontrar emojis
-emoji_pattern = re.compile(r'[\U0001F300-\U0001F64F\U0001F680-\U0001F6FF\u2600-\u26FF\u2700-\u27BF]')
+# Función para extraer y contar emojis en un texto usando la librería emoji
+def count_emojis(text: str, emoji_counts: Counter):
+    for char in text:
+        if char in emoji.EMOJI_DATA:
+            emoji_counts[char] += 1
+
 
 # Función principal que lee el archivo JSON y cuenta los emojis en los tweets
-def q2_time(file_path: str) -> List[Tuple[str, int]]:
+def q2_memory(file_path: str) -> List[Tuple[str, int]]:
 
     print("Inicio del proceso")
 
@@ -23,12 +25,8 @@ def q2_time(file_path: str) -> List[Tuple[str, int]]:
             tweet = json.loads(line.strip())  
             if "content" in tweet:
                 text = tweet["content"]
-                # Encontrar emojis en el texto según las expresiones
-                emojis_in_tweet = emoji_pattern.findall(text)  
-                emoji_counts.update(emojis_in_tweet) 
+                count_emojis(text, emoji_counts)
 
     # Obtener los 10 emojis más comunes
     most_common_emojis = emoji_counts.most_common(10)
     return most_common_emojis
-
-
