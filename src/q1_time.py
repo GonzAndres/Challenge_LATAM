@@ -27,7 +27,7 @@ def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
     # Utilizamos función para extraer el top 10 fechas
     top10_fechas = heapq.nlargest(10, fecha_usuario_count.keys(), key=lambda fecha: sum(fecha_usuario_count[fecha].values()))
 
-    # Buscamos los usuarios con más tweets para cada una de las 10 fechas
-    usuarios_top_por_fecha = [(fecha, max(fecha_usuario_count[fecha], key=fecha_usuario_count[fecha].get)) for fecha in top10_fechas]
-
+    # Buscamos los usuarios con más tweets para cada una de las 10 fechas y convertimos la fecha en datetime
+    usuarios_top_por_fecha = [(datetime.strptime(fecha, '%Y-%m-%d').date(), max(fecha_usuario_count[fecha], key=fecha_usuario_count[fecha].get)) for fecha in top10_fechas]
+ 
     return usuarios_top_por_fecha
