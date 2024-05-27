@@ -8,6 +8,7 @@ import os
 # Expresión regular para encontrar emojis
 emoji_pattern = re.compile(r'[\U0001F300-\U0001F64F\U0001F680-\U0001F6FF\u2600-\u26FF\u2700-\u27BF]')
 
+
 # Función principal que lee el archivo JSON y cuenta los emojis en los tweets
 def q2_time(file_path: str) -> List[Tuple[str, int]]:
 
