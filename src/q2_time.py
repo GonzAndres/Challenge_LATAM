@@ -1,9 +1,7 @@
-import json
-import emoji
 import re
 from collections import Counter
 from typing import List, Tuple
-import os
+import orjson
 
 # Expresión regular para encontrar emojis
 emoji_pattern = re.compile(r'[\U0001F300-\U0001F64F\U0001F680-\U0001F6FF\u2600-\u26FF\u2700-\u27BF]')
@@ -21,7 +19,7 @@ def q2_time(file_path: str) -> List[Tuple[str, int]]:
     with open(file_path, 'r', encoding='utf-8') as file:
         for line in file:
             # Cargar cada línea como un objeto JSON
-            tweet = json.loads(line.strip())  
+            tweet = orjson.loads(line.strip())  
             if "content" in tweet:
                 text = tweet["content"]
                 # Encontrar emojis en el texto según las expresiones
