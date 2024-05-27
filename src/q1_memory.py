@@ -1,12 +1,9 @@
 from typing import List, Tuple
 from datetime import datetime
-import pandas as pd
-import json
 import heapq
-import os
+import orjson
 from collections import defaultdict
 from collections import Counter
-
 
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
 
@@ -20,7 +17,7 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
 
         # Iteramos línea por línea del archivo y transformamos cada una en un diccionario de python.
         for line in f:
-            tweet_data = json.loads(line)
+            tweet_data = orjson.loads(line)
             # Extraemos la fecha y la asignamos al dic
             fecha = tweet_data['date'].split('T')[0]
             # Extraemos el usuario y la asignamos al dic
@@ -35,4 +32,5 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
     usuarios_top_por_fecha = [(datetime.strptime(fecha, '%Y-%m-%d').date(), max(fecha_usuario_count[fecha], key=fecha_usuario_count[fecha].get)) for fecha in top10_fechas]
 
     return usuarios_top_por_fecha
+
 

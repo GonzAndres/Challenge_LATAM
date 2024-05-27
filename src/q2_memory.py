@@ -1,7 +1,7 @@
-import json
 import emoji
 from collections import Counter
 from typing import List, Tuple
+import orjson
 
 # Función para extraer y contar emojis en un texto usando la librería emoji
 def count_emojis(text: str, emoji_counts: Counter):
@@ -22,7 +22,7 @@ def q2_memory(file_path: str) -> List[Tuple[str, int]]:
     with open(file_path, 'r', encoding='utf-8') as file:
         for line in file:
             # Cargar cada línea como un objeto JSON
-            tweet = json.loads(line.strip())  
+            tweet = orjson.loads(line.strip())  
             if "content" in tweet:
                 text = tweet["content"]
                 count_emojis(text, emoji_counts)
